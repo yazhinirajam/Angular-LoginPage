@@ -1,0 +1,119 @@
+<div class="container mt-4">
+  <div class="row">
+    <div class="col-md-6">
+      <div class="card border-primary">
+        <div class="card-body">
+          <h3 class="card-title mb-4">Add New User</h3>
+          <form [formGroup]="addItemForm" (ngSubmit)="addItem()">
+            <div class="form-group">
+              <label for="name">Name:</label>
+              <input id="name" type="text" formControlName="name" class="form-control" placeholder="Name">
+              <div *ngIf="addItemForm.get('name')?.errors?.['required'] && (addItemForm.get('name')?.dirty || addItemForm.get('name')?.touched)" class="text-danger">
+                Name is required.
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="phoneNumber">Phone Number:</label>
+              <input id="phoneNumber" type="text" formControlName="phoneNumber" class="form-control" placeholder="Phone Number">
+              <div *ngIf="addItemForm.get('phoneNumber')?.errors?.['required'] && (addItemForm.get('phoneNumber')?.dirty || addItemForm.get('phoneNumber')?.touched)" class="text-danger">
+                Phone Number is required.
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="email">Email:</label>
+              <input id="email" type="email" formControlName="email" class="form-control" placeholder="Email">
+              <div *ngIf="addItemForm.get('email')?.errors?.['required'] && (addItemForm.get('email')?.dirty || addItemForm.get('email')?.touched)" class="text-danger">
+                Email is required.
+              </div>
+              <div *ngIf="addItemForm.get('email')?.errors?.['email'] && (addItemForm.get('email')?.dirty || addItemForm.get('email')?.touched)" class="text-danger">
+                Please enter a valid email address.
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="gender">Gender:</label>
+              <input id="gender" type="text" formControlName="gender" class="form-control" placeholder="Gender">
+              <div *ngIf="addItemForm.get('gender')?.errors?.['required'] && (addItemForm.get('gender')?.dirty || addItemForm.get('gender')?.touched)" class="text-danger">
+                Gender is required.
+              </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Add</button>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="card border-secondary">
+        <div class="card-body">
+          <h3 class="card-title mb-4">User List</h3>
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Phone Number</th>
+                <th>Email</th>
+                <th>Gender</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of items; let i = index">
+                <td>{{ item.name }}</td>
+                <td>{{ item.phoneNumber }}</td>
+                <td>{{ item.email }}</td>
+                <td>{{ item.gender }}</td>
+                <td>
+                  <button (click)="editItem(item)" class="btn btn-sm btn-outline-primary">Edit</button>
+                  <button (click)="deleteItem(i)" class="btn btn-sm btn-outline-danger">Delete</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row mt-4" *ngIf="editingItem">
+    <div class="col-md-6">
+      <div class="card border-warning">
+        <div class="card-body">
+          <h3 class="card-title mb-4">Edit User</h3>
+          <form [formGroup]="editItemForm" (ngSubmit)="updateItem()">
+            <div class="form-group">
+              <label for="editName">Name:</label>
+              <input id="editName" type="text" formControlName="name" class="form-control" placeholder="Name">
+              <div *ngIf="editItemForm.get('name')?.errors?.['required'] && (editItemForm.get('name')?.dirty || editItemForm.get('name')?.touched)" class="text-danger">
+                Name is required.
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="editPhoneNumber">Phone Number:</label>
+              <input id="editPhoneNumber" type="text" formControlName="phoneNumber" class="form-control" placeholder="Phone Number">
+              <div *ngIf="editItemForm.get('phoneNumber')?.errors?.['required'] && (editItemForm.get('phoneNumber')?.dirty || editItemForm.get('phoneNumber')?.touched)" class="text-danger">
+                Phone Number is required.
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="editEmail">Email:</label>
+              <input id="editEmail" type="email" formControlName="email" class="form-control" placeholder="Email">
+              <div *ngIf="editItemForm.get('email')?.errors?.['required'] && (editItemForm.get('email')?.dirty || editItemForm.get('email')?.touched)" class="text-danger">
+                Email is required.
+              </div>
+              <div *ngIf="editItemForm.get('email')?.errors?.['email'] && (editItemForm.get('email')?.dirty || editItemForm.get('email')?.touched)" class="text-danger">
+                Please enter a valid email address.
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="editGender">Gender:</label>
+              <input id="editGender" type="text" formControlName="gender" class="form-control" placeholder="Gender">
+              <div *ngIf="editItemForm.get('gender')?.errors?.['required'] && (editItemForm.get('gender')?.dirty || editItemForm.get('gender')?.touched)" class="text-danger">
+                Gender is required.
+              </div>
+            </div>
+            <button type="submit" class="btn btn-warning">Update</button>
+            <button type="button" class="btn btn-outline-secondary ml-2" (click)="cancelEdit()">Cancel</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
